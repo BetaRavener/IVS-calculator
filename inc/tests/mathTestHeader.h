@@ -1,7 +1,8 @@
 #ifndef mathTestHeader_H
 #define mathTestHeader_H
 
-#include <QTest>
+#include <QObject>
+
 class mathTestHeader : public QObject
 {
     Q_OBJECT
