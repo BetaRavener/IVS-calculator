@@ -1,49 +1,65 @@
 #include "inc/core/math.h"
 
+
 double Math::add(double a, double b)
 {
-    //TODO
-    return 0.0;
+    return a+b;
 }
 
 
 double Math::sub(double a, double b)
 {
-    //TODO
-    return 0.0;
+    return a-b;
 }
 
 
 double Math::mul(double a, double b)
 {
-    //TODO
-    return 0.0;
+    return a*b;
 }
 
 
 double Math::div(double a, double b)
 {
-    //TODO
-    return 0.0;
+    if (b == 0)
+        throw std::invalid_argument("cannot divide by zero");
+
+    return a/b;
 }
 
 
-double Math::exp(double x, unsigned int exp)
+double Math::exp(double x, int exp)
 {
-    //TODO
-    return 0.0;
+    double result = (x == 0) ? 0 : 1;
+
+    for (int i = 0; i < abs(exp); i++){
+        result *= x;
+    }
+
+    if (exp < 0)
+        result = Math::div(1, result);
+
+    return result;
 }
 
 
 double Math::sqrt(double x)
 {
-    //TODO
+    // TODO
     return 0.0;
 }
 
 
-double Math::fact(double x)
+int Math::fact(int x)
 {
-    //TODO
-    return 0.0;
+    if (x < 0)
+        throw std::invalid_argument("factorial must be a positive integer number");
+
+    int fac = 1;
+
+    for (int i = 1; i <= x; i++){
+        fac = fac*i;
+    }
+
+    return fac;
 }

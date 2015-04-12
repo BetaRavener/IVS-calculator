@@ -146,7 +146,7 @@ void mathTestHeader::testExp() {
     QCOMPARE(Math::exp(4,3),64.0);
     QCOMPARE(Math::exp(5.5,2),30.25);
 //negative numbers
-    QCOMPARE(Math::exp(-2,-2),-0.25);
+    QCOMPARE(Math::exp(-2,-2),0.25);
     QCOMPARE(Math::exp(-4,-3),-0.015625);
     QCOMPARE(Math::exp(-2.5,-3),-0.064);
 //positive and negative numbers
