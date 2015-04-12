@@ -122,12 +122,12 @@ void mathTestHeader::testDiv() {
 //! Factorial
 void mathTestHeader::testFac() {
 //zero
-    QCOMPARE(Math::fact(0),0.0);
+    QCOMPARE(Math::fact(0),1);
 // positive numbers
-    QCOMPARE(Math::fact(1),1.0);
-    QCOMPARE(Math::fact(2),2.0);
-    QCOMPARE(Math::fact(4),24.0);
-    QCOMPARE(Math::fact(10),3628800.0);
+    QCOMPARE(Math::fact(1),1);
+    QCOMPARE(Math::fact(2),2);
+    QCOMPARE(Math::fact(4),24);
+    QCOMPARE(Math::fact(10),3628800);
 //negative numbers
     QVERIFY_EXCEPTION_THROWN(Math::fact(-1),std::invalid_argument);
     QVERIFY_EXCEPTION_THROWN(Math::fact(-5),std::invalid_argument);
