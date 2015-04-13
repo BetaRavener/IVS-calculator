@@ -83,6 +83,9 @@ TokenVector Scanner::scan(std::string input)
                         case '/':
                             tokenVector.add(new Token(Token::Type::Divide));
                         break;
+                        case '^':
+                            tokenVector.add(new FunctionToken(FunctionToken::FunctionId::Exponential));
+                        break;
                         default:
                             // Error handling - unexpected char
                             throw std::runtime_error("unexpected character in expression");
@@ -154,8 +157,6 @@ TokenVector Scanner::scan(std::string input)
 
                     if (tmpStr.compare("fac") == 0){
                         tokenVector.add(new FunctionToken(FunctionToken::FunctionId::Factorial));
-                    }else if (tmpStr.compare("exp") == 0){
-                        tokenVector.add(new FunctionToken(FunctionToken::FunctionId::Exponential));
                     }else if (tmpStr.compare("sqrt") == 0){
                         tokenVector.add(new FunctionToken(FunctionToken::FunctionId::SquareRoot));
                     }else{
