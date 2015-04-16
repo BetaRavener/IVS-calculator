@@ -7,14 +7,14 @@ class Token
 {
 public:
     enum class Type { Number, Function, LeftBrace, RightBrace, Comma,
-                      Plus, Minus, Multiply, Divide };
+                      Plus, Minus, Multiply, Divide, Exp, End };
 
     Token(Type type);
     virtual ~Token();
 
     virtual Token* clone() const;
 
-    Type getType();
+    Type type() const;
 
 private:
     Type _type;
@@ -27,6 +27,8 @@ public:
     virtual ~NumberToken();
 
     virtual NumberToken* clone() const;
+
+    double number() const;
 
 private:
     double _number;
@@ -42,7 +44,9 @@ public:
 
     virtual FunctionToken* clone() const;
 
-    FunctionId getFunctionId();
+    FunctionId functionId() const;
+
+    unsigned int paramNum() const;
 
 private:
     FunctionId _functionId;

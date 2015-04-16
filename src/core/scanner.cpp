@@ -61,6 +61,7 @@ TokenVector Scanner::scan(std::string input)
                     continue;
                 }
                 else if (symbol == '\0') {
+                    tokenVector.add(new Token(Token::Type::End));
                     state = ST_Exit;
                 }
                 else {
@@ -84,7 +85,7 @@ TokenVector Scanner::scan(std::string input)
                             tokenVector.add(new Token(Token::Type::Divide));
                         break;
                         case '^':
-                            tokenVector.add(new FunctionToken(FunctionToken::FunctionId::Exponential));
+                            tokenVector.add(new Token(Token::Type::Exp));
                         break;
                         default:
                             // Error handling - unexpected char
@@ -153,8 +154,6 @@ TokenVector Scanner::scan(std::string input)
                     tmpStr += symbol;
                     state = ST_Function;
                 }else{
-                    tokenVector.add(new FunctionToken(FunctionToken::FunctionId::Exponential));
-
                     if (tmpStr.compare("fac") == 0){
                         tokenVector.add(new FunctionToken(FunctionToken::FunctionId::Factorial));
                     }else if (tmpStr.compare("sqrt") == 0){

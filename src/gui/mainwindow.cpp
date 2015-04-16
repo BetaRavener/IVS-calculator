@@ -1,6 +1,10 @@
-#include "mainwindow.h"
+#include "inc/gui/mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QString>
+
+#include <fstream>
+
+#include "inc/core/evaluator.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -117,3 +121,27 @@ void MainWindow::on_ButtonResult_clicked()
     this->example=ui->Example->toPlainText();
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    std::ifstream fin("test.txt");
+    std::ofstream fout("test-out.txt");
+    std::string input;
+
+    Evaluator eval;
+
+    if (fin.is_open())
+    {
+        while (std::getline(fin, input))
+        {
+            try
+            {
+                fout << eval.evaluate(input) << std::endl;
+            }
+            catch (std::runtime_error e)
+            {
+                ui->Example->setText(e.what());
+            }
+        }
+    }
+}

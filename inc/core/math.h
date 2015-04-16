@@ -13,6 +13,7 @@ public:
     static double exp(double x, int exp);
     static double sqrt(double x);
     static int fact(int x);
+    static double abs(double x);
 };
 
 #endif // MATH_H

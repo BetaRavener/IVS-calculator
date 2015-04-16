@@ -16,6 +16,11 @@ Token *Token::clone() const
     return new Token(_type);
 }
 
+Token::Type Token::type() const
+{
+    return _type;
+}
+
 
 NumberToken::NumberToken(double number) :
     Token(Token::Type::Number),
@@ -32,6 +37,11 @@ NumberToken::~NumberToken()
 NumberToken *NumberToken::clone() const
 {
     return new NumberToken(_number);
+}
+
+double NumberToken::number() const
+{
+    return _number;
 }
 
 
@@ -52,11 +62,23 @@ FunctionToken *FunctionToken::clone() const
     return new FunctionToken(_functionId);
 }
 
-FunctionToken::FunctionId FunctionToken::getFunctionId()
+FunctionToken::FunctionId FunctionToken::functionId() const
 {
     return _functionId;
 }
 
+unsigned int FunctionToken::paramNum() const
+{
+    switch(_functionId)
+    {
+    case FunctionId::Exponential:
+        return 2;
+    case FunctionId::Factorial:
+        return 1;
+    case FunctionId::SquareRoot:
+        return 1;
+    }
+}
 
 TokenVector::TokenVector()
 {
