@@ -107,18 +107,39 @@ void MainWindow::on_ButtonPower_clicked()
 
 void MainWindow::on_ButtonRoot_clicked()
 {
-    ui->Example->setText(ui->Example->toPlainText()+ui->ButtonRoot->text());
+    ui->Example->setText(ui->Example->toPlainText()+"sqrt(");
 }
 
 void MainWindow::on_ButtonLog_clicked()
 {
-    ui->Example->setText(ui->Example->toPlainText()+ui->ButtonLog->text());
+    ui->Example->setText(ui->Example->toPlainText()+ui->ButtonLog->text()+'(');
 }
 
 void MainWindow::on_ButtonResult_clicked()
 {
     ui->Example->setText(ui->Example->toPlainText()+ui->ButtonResult->text()+"\n");
     this->example=ui->Example->toPlainText();
+
+    std::ifstream fin("test.txt");
+    std::ofstream fout("test-out.txt");
+    std::string input;
+
+    Evaluator eval;
+
+    if (fin.is_open())
+    {
+        while (std::getline(fin, input))
+        {
+            try
+            {
+                fout << eval.evaluate(input) << std::endl;
+            }
+            catch (std::runtime_error e)
+            {
+                ui->Example->setText(e.what());
+            }
+        }
+    }
 }
 
 
