@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include "inc/core/math.h"
+#include "inc/core/myexception.h"
 
 Parser::Parser()
 {
@@ -75,7 +76,7 @@ double Parser::parse(const TokenVector &tokenVector)
 
             case Error:
                 deallocateVector();
-                throw new std::runtime_error("Syntax Error");
+                throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
         }
 
         if (tokenIdx + 1 < tokenVector.size())
@@ -83,7 +84,7 @@ double Parser::parse(const TokenVector &tokenVector)
     }
 
     deallocateVector();
-    throw new std::runtime_error("Syntax Error");
+    throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
 }
 
 Parser::ExprToken *Parser::performOperation(Parser::ExprToken *operation, Parser::ExprToken *op1, Parser::ExprToken *op2)
@@ -174,29 +175,29 @@ void Parser::reduce(Parser::ExprToken *topTerm)
         uint32_t stackSize = exprVector.size();
         if (stackSize < 3) {
             deallocateVector();
-            throw new std::runtime_error("Syntax Error");
+            throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
         }
 
         ExprToken* operand2 = *(exprVector.end() - 1);
         if (operand2->type() != ExprToken::Type::NonTerminal) {
             deallocateVector();
-            throw new std::runtime_error("Syntax Error");
+            throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
         }
 
         ExprToken* operation = *(exprVector.end() - 2);
         if (operation != topTerm)
-            throw new std::runtime_error("Syntax Error");
+            throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
 
         ExprToken* operand1 = *(exprVector.end() - 3);
         if (operand1->type() != ExprToken::Type::NonTerminal) {
             deallocateVector();
-            throw new std::runtime_error("Syntax Error");
+            throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
         }
 
         ExprToken* result = performOperation(operation, operand1, operand2);
         if (result == nullptr) {
             deallocateVector();
-            throw new std::runtime_error("Syntax Error");
+            throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
         }
 
         operation = nullptr;
@@ -212,7 +213,7 @@ void Parser::reduce(Parser::ExprToken *topTerm)
         uint32_t stackSize = exprVector.size();
         if (stackSize < 3) {
             deallocateVector();
-            throw new std::runtime_error("Syntax Error");
+            throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
         }
 
         auto nextTermIt = exprVector.end();
@@ -222,7 +223,7 @@ void Parser::reduce(Parser::ExprToken *topTerm)
 
             if ((*nextTermIt)->check(ExprToken::Type::Terminal, Token::Type::LeftBrace)) { // Empty braces or parameter-less functions are not allowed
                 deallocateVector();
-                throw new std::runtime_error("Syntax Error");
+                throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
             }
             else if ((*nextTermIt)->type() == ExprToken::Type::NonTerminal) { // we have E) and are not sure what it is
                 nextTermIt--;
@@ -232,7 +233,7 @@ void Parser::reduce(Parser::ExprToken *topTerm)
 
                     if (stackPos < 4) { // not enough space for best case func(E,E)
                         deallocateVector();
-                        throw new std::runtime_error("Syntax Error");
+                        throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
                     }
 
                     uint32_t paramCount = 0;
@@ -252,7 +253,7 @@ void Parser::reduce(Parser::ExprToken *topTerm)
                             if (result == nullptr)
                             {
                                 deallocateVector();
-                                throw new std::runtime_error("Syntax Error");
+                                throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
                             }
                             else
                             {
@@ -276,23 +277,23 @@ void Parser::reduce(Parser::ExprToken *topTerm)
                 }
                 else {
                     deallocateVector();
-                    throw new std::runtime_error("Syntax Error");
+                    throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
                 }
             }
             else {
                 deallocateVector();
-                throw new std::runtime_error("Syntax Error");
+                throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
             }
         }
         else {
             deallocateVector();
-            throw new std::runtime_error("Syntax Error");
+            throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
         }
         break;
     }
     default:
         deallocateVector();
-        throw new std::runtime_error("Syntax Error");
+        throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
     }
 }
 
@@ -301,7 +302,7 @@ void Parser::reduceMultiparamFunc(uint32_t stackPos, uint32_t *paramCount)
     if (stackPos == 0)
     {
         deallocateVector();
-        throw new std::runtime_error("Syntax Error");
+        throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
     }
 
     ExprToken* first = exprVector[stackPos];
@@ -315,14 +316,14 @@ void Parser::reduceMultiparamFunc(uint32_t stackPos, uint32_t *paramCount)
         else if (second->check(ExprToken::Type::Terminal,Token::Type::LeftBrace)) { // got (E,..,E), expect id
             if (stackPos < 2) {
                 deallocateVector();
-                throw new std::runtime_error("Syntax Error");
+                throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
             }
 
             // check for function id token before (
             ExprToken* function = exprVector[stackPos - 2];
             if (!function->check(ExprToken::Type::Terminal, Token::Type::Function)) {
                 deallocateVector();
-                throw new std::runtime_error("Syntax Error");
+                throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
             }
 
             // Collect params
@@ -337,7 +338,7 @@ void Parser::reduceMultiparamFunc(uint32_t stackPos, uint32_t *paramCount)
             if (result == nullptr)
             {
                 deallocateVector();
-                throw new std::runtime_error("Syntax Error");
+                throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
             }
             else
             {
@@ -347,12 +348,12 @@ void Parser::reduceMultiparamFunc(uint32_t stackPos, uint32_t *paramCount)
         }
         else {
             deallocateVector();
-            throw new std::runtime_error("Syntax Error");
+            throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
         }
     }
     else {
         deallocateVector();
-        throw new std::runtime_error("Syntax Error");
+        throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
     }
 }
 

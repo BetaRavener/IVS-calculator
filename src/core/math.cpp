@@ -1,4 +1,5 @@
 #include "inc/core/math.h"
+#include "inc/core/myexception.h"
 
 double Math::add(double a, double b)
 {
@@ -21,7 +22,7 @@ double Math::mul(double a, double b)
 double Math::div(double a, double b)
 {
     if (b == 0)
-        throw std::invalid_argument("cannot divide by zero");
+        throw MathException();
 
     return a/b;
 }
@@ -51,7 +52,7 @@ double Math::sqrt(double x)
     double eps = 1.0e-15;
 
     if(x < 0)
-        throw std::invalid_argument("cannot find square root for negative");
+        throw MathException();
 
     double y, nextMem = 1;
     do{
@@ -66,7 +67,7 @@ double Math::sqrt(double x)
 int Math::fact(int x)
 {
     if (x < 0)
-        throw std::invalid_argument("factorial must be a positive integer number");
+        throw MathException();
 
     int fac = 1;
 

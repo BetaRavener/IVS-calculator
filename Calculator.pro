@@ -24,7 +24,8 @@ HEADERS += \
     src/core/evaluator.h \
     inc/core/evaluator.h \
     inc/core/parser.h \
-    inc/core/math.h
+    inc/core/math.h \
+    inc/core/myexception.h
 
 SOURCES += \
     src/core/scanner.cpp \

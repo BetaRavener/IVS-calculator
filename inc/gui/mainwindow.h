@@ -43,13 +43,18 @@ private slots:
     void on_ButtonDiv_clicked();
     void on_ButtonMul_clicked();
 
-    void on_ButtonLog_clicked();
-
     void on_ButtonResult_clicked();
 
-    void on_pushButton_clicked();
+    void on_ButtonFak_clicked();
+
+    void on_ButtonClear_clicked();
 
 private:
+    QString getInput();
+    void setInput(QString input);
+
+    void setResult(QString result);
+
     Ui::MainWindow *ui;
 };
 

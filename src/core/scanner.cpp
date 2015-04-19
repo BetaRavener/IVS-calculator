@@ -1,5 +1,5 @@
 #include "inc/core/scanner.h"
-
+#include "inc/core/myexception.h"
 
 Scanner::Scanner()
 {
@@ -89,7 +89,7 @@ TokenVector Scanner::scan(std::string input)
                         break;
                         default:
                             // Error handling - unexpected char
-                            throw std::runtime_error("unexpected character in expression");
+                            throw LexicalException();//throw std::runtime_error("unexpected character in expression");
                         break;
                     }
                 }
@@ -107,7 +107,7 @@ TokenVector Scanner::scan(std::string input)
                         tokenVector.add(new NumberToken(std::stod(tmpStr)));
                     }catch(std::invalid_argument){
                         // Error handling - unexpected number format
-                        throw std::runtime_error("unexpected number format");
+                        throw LexicalException();//throw std::runtime_error("unexpected number format");
                     }
 
                     // Save last character
@@ -124,7 +124,7 @@ TokenVector Scanner::scan(std::string input)
                     tmpStr += symbol;
                     state = ST_DoubleDec;
                 }else{
-                    throw std::runtime_error("unexpected number format");
+                    throw LexicalException();//throw std::runtime_error("unexpected number format");
                 }
                 break;
             }
@@ -137,7 +137,7 @@ TokenVector Scanner::scan(std::string input)
                         tokenVector.add(new NumberToken(std::stod(tmpStr)));
                     }catch(std::invalid_argument){
                         // Error handling - unexpected number format
-                        throw std::runtime_error("unexpected number format");
+                        throw LexicalException();//throw std::runtime_error("unexpected number format");
                     }
 
                     // Save last character
@@ -154,13 +154,13 @@ TokenVector Scanner::scan(std::string input)
                     tmpStr += symbol;
                     state = ST_Function;
                 }else{
-                    if (tmpStr.compare("fac") == 0){
+                    if (tmpStr.compare("fact") == 0){
                         tokenVector.add(new FunctionToken(FunctionToken::FunctionId::Factorial));
                     }else if (tmpStr.compare("sqrt") == 0){
                         tokenVector.add(new FunctionToken(FunctionToken::FunctionId::SquareRoot));
                     }else{
                         // Error handling - unexpected function
-                        throw std::runtime_error("unexpected function in expression");
+                        throw LexicalException();//throw std::runtime_error("unexpected function in expression");
                     }
 
                     // Save last character
