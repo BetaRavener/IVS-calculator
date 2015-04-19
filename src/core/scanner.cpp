@@ -99,7 +99,7 @@ TokenVector Scanner::scan(std::string input)
                 if (symbol >= '0' && symbol <= '9'){
                     tmpStr += symbol;
                     state = ST_Number;
-                }else if (symbol == ',') {
+                }else if (symbol == ',' || symbol == '.') {
                     tmpStr += '.';
                     state = ST_Double;
                 }else{
