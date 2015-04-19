@@ -1,7 +1,8 @@
 #include "inc/core/token.h"
 
 Token::Token(Token::Type type) :
-    _type(type)
+    _type(type),
+    _skip(false)
 {
 
 }
@@ -21,6 +22,15 @@ Token::Type Token::type() const
     return _type;
 }
 
+bool Token::skip()
+{
+    _skip = true;
+}
+
+bool Token::isSkipped()
+{
+    return _skip;
+}
 
 NumberToken::NumberToken(double number) :
     Token(Token::Type::Number),
@@ -42,6 +52,11 @@ NumberToken *NumberToken::clone() const
 double NumberToken::number() const
 {
     return _number;
+}
+
+void NumberToken::number(double number)
+{
+    _number = number;
 }
 
 

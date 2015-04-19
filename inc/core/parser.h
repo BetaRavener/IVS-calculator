@@ -11,7 +11,7 @@ public:
     Parser();
     ~Parser();
 
-    double parse(const TokenVector& tokenVector);
+    double parse(TokenVector& tokenVector);
 
 private:
     class ExprToken

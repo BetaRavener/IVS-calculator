@@ -40,14 +40,59 @@ static uint8_t precedenceTable[(uint32_t)Token::Type::End + 1][(uint32_t)Token::
     { Low,    Low,    Low,    Error,  Error,  Low,    Low,    Low,    Low,   Low,   Error },  // $
 };
 
-double Parser::parse(const TokenVector &tokenVector)
+double Parser::parse(TokenVector &tokenVector)
 {
     exprVector.clear();
     Token endToken(Token::Type::End);
     ExprToken stackBeginToken(ExprToken::Type::Terminal, &endToken);
 
+    // Find unary "-" and reduce them
+    for (int i = 0; i < tokenVector.size() - 1; i++)
+    {
+        Token* t = tokenVector[i];
+        Token* n = tokenVector[i+1];
+        if (t->type() == Token::Type::Minus && n->type() == Token::Type::Number)
+        {
+            bool unite = false;
+            if (i == 0)
+            {
+                unite = true;
+            }
+            else
+            {
+                Token *p = tokenVector[i-1];
+                switch(p->type())
+                {
+                case Token::Type::Number:
+                case Token::Type::RightBrace:
+                    break;
+                default:
+                    unite = true;
+                }
+            }
+
+            if (unite)
+            {
+                t->skip();
+                NumberToken *nt = static_cast<NumberToken*>(n);
+                nt->number(nt->number() * -1.0);
+            }
+        }
+    }
+
     uint32_t tokenIdx = 0;
-    const Token *currentToken = tokenVector[tokenIdx];
+    Token *currentToken = nullptr;
+    for (;tokenIdx < tokenVector.size(); tokenIdx++)
+    {
+        if (!tokenVector[tokenIdx]->isSkipped())
+        {
+            currentToken = tokenVector[tokenIdx];
+            break;
+        }
+    }
+
+    if (currentToken == nullptr)
+        throw SyntaxException();
 
     while(true)
     {
@@ -79,8 +124,12 @@ double Parser::parse(const TokenVector &tokenVector)
                 throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
         }
 
-        if (tokenIdx + 1 < tokenVector.size())
+        while (tokenIdx + 1 < tokenVector.size())
+        {
             currentToken = tokenVector[++tokenIdx];
+            if (!currentToken->isSkipped())
+                break;
+        }
     }
 
     deallocateVector();

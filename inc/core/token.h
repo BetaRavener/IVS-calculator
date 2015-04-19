@@ -16,8 +16,12 @@ public:
 
     Type type() const;
 
+    bool skip();
+    bool isSkipped();
+
 private:
     Type _type;
+    bool _skip;
 };
 
 class NumberToken : public Token
@@ -29,6 +33,7 @@ public:
     virtual NumberToken* clone() const;
 
     double number() const;
+    void number(double number);
 
 private:
     double _number;
