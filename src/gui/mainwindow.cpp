@@ -3,10 +3,16 @@
 #include <QString>
 #include <QShortcut>
 
+#include <QDesktopServices>
+#include <QUrl>
+#include <QFileInfo>
+#include <QDir>
+
 #include <fstream>
 
 #include "inc/core/evaluator.h"
 #include "inc/core/myexception.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -44,6 +50,24 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_ActionHelp_triggered()
+{
+    QFileInfo file(QDir::currentPath()+"/help.html");
+
+    if (!file.exists() || !file.isFile()) {
+        QMessageBox::warning(this, "Nápověda", "Nápověda nebyla nalezena.");
+    }else{
+        QDesktopServices::openUrl(QUrl("file:///"+QDir::currentPath()+"/help.html", QUrl::TolerantMode));
+    }
+}
+
+
+void MainWindow::on_ActionAboutApp_triggered()
+{
+    QMessageBox::information(this, "O programu", "VUT FIT Brno \n \n Calculator - IVS 3 project \n \n Autoři:\n Ivan Ševčík, Tomáš Polešovský, Zdeněk Sklenář, Miroslav Pavelek");
+}
+
 
 void MainWindow::on_Button0_clicked()
 {

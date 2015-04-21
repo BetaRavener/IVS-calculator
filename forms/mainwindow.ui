@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>285</width>
+    <width>558</width>
     <height>312</height>
    </rect>
   </property>
@@ -360,17 +360,32 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>285</width>
-     <height>26</height>
+     <width>558</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuN_pov_da">
     <property name="title">
      <string>Nápověda</string>
     </property>
+    <addaction name="ActionHelp"/>
+    <addaction name="ActionAboutApp"/>
    </widget>
    <addaction name="menuN_pov_da"/>
   </widget>
+  <action name="ActionHelp">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Nápověda</string>
+   </property>
+  </action>
+  <action name="ActionAboutApp">
+   <property name="text">
+    <string>O Programu</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

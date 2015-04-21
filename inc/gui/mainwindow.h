@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -16,6 +17,9 @@ public:
     ~MainWindow();
     QString example;
 private slots:
+
+    void on_ActionHelp_triggered();
+    void on_ActionAboutApp_triggered();
 
     void on_Button0_clicked();
     void on_Button1_clicked();
