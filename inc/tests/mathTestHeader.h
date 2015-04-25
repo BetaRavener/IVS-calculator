@@ -1,3 +1,9 @@
+/**
+ * @file mathTestHeader.h
+ * @author Tomas Polesovsky, Miroslav Pavelek, Ivan Sevcik, Zdenek Sklenar
+ * @brief mathTestHeader mathTestHeader.cpp
+ */
+
 #ifndef mathTestHeader_H
 #define mathTestHeader_H
 

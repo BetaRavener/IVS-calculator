@@ -1,3 +1,9 @@
+/**
+ * @file math.h
+ * @author Tomas Polesovsky, Miroslav Pavelek, Ivan Sevcik, Zdenek Sklenar
+ * @brief math math.cpp
+ */
+
 #ifndef MATH_H
 #define MATH_H
 

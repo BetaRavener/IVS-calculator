@@ -1,0 +1,47 @@
+\hypertarget{parser_8cpp}{\section{src/core/parser.cpp File Reference}
+\label{parser_8cpp}\index{src/core/parser.\-cpp@{src/core/parser.\-cpp}}
+}
+
+
+Syntactic analysis.  
+
+
+{\ttfamily \#include \char`\"{}inc/core/parser.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}inc/core/token.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$stdexcept$>$}\\*
+{\ttfamily \#include \char`\"{}inc/core/math.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}inc/core/myexception.\-h\char`\"{}}\\*
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872b}{Token\-Precedence} \{ \hyperlink{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba7a352a3dd2accc1dd65a4538c3754ee8}{Low}, 
+\hyperlink{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba24c57acd029e3f96fede49402ea01e6f}{High}, 
+\hyperlink{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba4c2ccc0164cc7fc1102a4b69361acd1e}{Equal}, 
+\hyperlink{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba4dfd42ec49d09d8c6555c218301cc30f}{Error}
+ \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Syntactic analysis. \begin{DoxyAuthor}{Author}
+Tomas Polesovsky, Miroslav Pavelek, Ivan Sevcik, Zdenek Sklenar 
+\end{DoxyAuthor}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872b}{\index{parser.\-cpp@{parser.\-cpp}!Token\-Precedence@{Token\-Precedence}}
+\index{Token\-Precedence@{Token\-Precedence}!parser.cpp@{parser.\-cpp}}
+\subsubsection[{Token\-Precedence}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Token\-Precedence}}}\label{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872b}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{Low@{Low}!parser.\-cpp@{parser.\-cpp}}\index{parser.\-cpp@{parser.\-cpp}!Low@{Low}}\item[{\em 
+\hypertarget{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba7a352a3dd2accc1dd65a4538c3754ee8}{Low}\label{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba7a352a3dd2accc1dd65a4538c3754ee8}
+}]\hyperlink{classToken}{Token} on the top of the stack has lower priority than input token. \index{High@{High}!parser.\-cpp@{parser.\-cpp}}\index{parser.\-cpp@{parser.\-cpp}!High@{High}}\item[{\em 
+\hypertarget{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba24c57acd029e3f96fede49402ea01e6f}{High}\label{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba24c57acd029e3f96fede49402ea01e6f}
+}]\hyperlink{classToken}{Token} on the top of the stack has higher priority than input token. \index{Equal@{Equal}!parser.\-cpp@{parser.\-cpp}}\index{parser.\-cpp@{parser.\-cpp}!Equal@{Equal}}\item[{\em 
+\hypertarget{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba4c2ccc0164cc7fc1102a4b69361acd1e}{Equal}\label{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba4c2ccc0164cc7fc1102a4b69361acd1e}
+}]\hyperlink{classToken}{Token} on the top of the stack has same priority as input token. \index{Error@{Error}!parser.\-cpp@{parser.\-cpp}}\index{parser.\-cpp@{parser.\-cpp}!Error@{Error}}\item[{\em 
+\hypertarget{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba4dfd42ec49d09d8c6555c218301cc30f}{Error}\label{parser_8cpp_aba2a120c4cddd8d30aee80f6c7f1872ba4dfd42ec49d09d8c6555c218301cc30f}
+}]\hyperlink{classToken}{Token} on the top of the stack cannot be followed by input token, syntax error. \end{description}
+\end{Desc}

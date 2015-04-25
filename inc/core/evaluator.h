@@ -1,3 +1,9 @@
+/**
+ * @file evaulator.h
+ * @author Tomas Polesovsky, Miroslav Pavelek, Ivan Sevcik, Zdenek Sklenar
+ * @brief evaulator evaulator.cpp
+ */
+
 #ifndef EVALUATOR_H
 #define EVALUATOR_H
 

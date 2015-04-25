@@ -1,12 +1,16 @@
-/********************************************//**
- *  Functional testing of math.h
- * Test cases for summation, subtraction, multiplication, division, factorial, exponentiation and root extraction
- ***********************************************/
+/**
+ * @file mathTest.cpp
+ * @author Tomas Polesovsky, Miroslav Pavelek, Ivan Sevcik, Zdenek Sklenar
+ * @brief Test cases for summation, subtraction, multiplication, division, factorial, exponentiation and root extraction
+ */
+
+
 #include <QtTest>
 #include <stdexcept>
 
 #include "inc/core/math.h"
 #include "inc/tests/mathTestHeader.h"
+
 
 //! Summation
 void mathTestHeader::testSum() {
@@ -32,6 +36,7 @@ void mathTestHeader::testSum() {
     QCOMPARE(Math::add(-71234,70569),-665.0);
 }
 
+
 //! Subtraction
 void mathTestHeader::testSub() {
 //zero
@@ -49,6 +54,7 @@ void mathTestHeader::testSub() {
     QCOMPARE(Math::sub(-90.3,29.2),-119.1);
     QCOMPARE(Math::sub(-65536,1000),-66536.0);
 }
+
 
 //! Multiplication
 void mathTestHeader::testMul() {
@@ -86,6 +92,7 @@ void mathTestHeader::testMul() {
     QCOMPARE(Math::mul(-321,312),-100152.0);
 }
 
+
 //! Division
 void mathTestHeader::testDiv() {
 //by zero
@@ -119,6 +126,7 @@ void mathTestHeader::testDiv() {
     QCOMPARE(Math::div(-6,-12),0.5);
 }
 
+
 //! Factorial
 void mathTestHeader::testFac() {
 //zero
@@ -133,6 +141,7 @@ void mathTestHeader::testFac() {
     QVERIFY_EXCEPTION_THROWN(Math::fact(-5),std::invalid_argument);
     QVERIFY_EXCEPTION_THROWN(Math::fact(-10),std::invalid_argument);
 }
+
 
 //! Exponentiation
 void mathTestHeader::testExp() {
@@ -154,6 +163,7 @@ void mathTestHeader::testExp() {
     QCOMPARE(Math::exp(-4,3),-64.0);
     QCOMPARE(Math::exp(-5.5,3),-166.375);
 }
+
 
 //! Root extraction
 void mathTestHeader::testExt() {

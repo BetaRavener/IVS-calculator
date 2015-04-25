@@ -1,3 +1,9 @@
+/**
+ * @file scanner.h
+ * @author Tomas Polesovsky, Miroslav Pavelek, Ivan Sevcik, Zdenek Sklenar
+ * @brief scanner scanner.cpp
+ */
+
 #ifndef SCANNER_H
 #define SCANNER_H
 

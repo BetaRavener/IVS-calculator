@@ -1,3 +1,9 @@
+/**
+ * @file parser.h
+ * @author Tomas Polesovsky, Miroslav Pavelek, Ivan Sevcik, Zdenek Sklenar
+ * @brief parser parser.cpp
+ */
+
 #ifndef PARSER_H
 #define PARSER_H
 

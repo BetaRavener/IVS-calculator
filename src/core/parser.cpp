@@ -1,3 +1,9 @@
+/**
+ * @file parser.cpp
+ * @author Tomas Polesovsky, Miroslav Pavelek, Ivan Sevcik, Zdenek Sklenar
+ * @brief Syntactic analysis
+ */
+
 #include "inc/core/parser.h"
 #include "inc/core/token.h"
 
@@ -11,10 +17,12 @@ Parser::Parser()
 
 }
 
+
 Parser::~Parser()
 {
 
 }
+
 
 typedef enum
 {
@@ -23,6 +31,7 @@ typedef enum
     Equal,      ///< Token on the top of the stack has same priority as input token
     Error       ///< Token on the top of the stack cannot be followed by input token, syntax error
 } TokenPrecedence;
+
 
 static uint8_t precedenceTable[(uint32_t)Token::Type::End + 1][(uint32_t)Token::Type::End + 1] =
 {
@@ -40,6 +49,13 @@ static uint8_t precedenceTable[(uint32_t)Token::Type::End + 1][(uint32_t)Token::
     { Low,    Low,    Low,    Error,  Error,  Low,    Low,    Low,    Low,   Low,   Error },  // $
 };
 
+
+/**
+ * Main function of parser
+ * @param tokenVector vector of tokens (Token class)
+ * @throw SyntaxException wrong expression
+ * @return mathematical result
+*/
 double Parser::parse(TokenVector &tokenVector)
 {
     exprVector.clear();
@@ -136,40 +152,56 @@ double Parser::parse(TokenVector &tokenVector)
     throw SyntaxException(); //throw new std::runtime_error("Syntax Error");
 }
 
+
+/**
+ * Perform specific operation
+ * @param operation type of operation
+ * @param op1 first operand
+ * @param op2 second operand
+ * @return mathematical result
+*/
 Parser::ExprToken *Parser::performOperation(Parser::ExprToken *operation, Parser::ExprToken *op1, Parser::ExprToken *op2)
 {
     ExprToken *result = new ExprToken(ExprToken::Type::NonTerminal);
 
     double x;
+
     switch(operation->token()->type())
     {
-    case Token::Type::Plus:
-        x = Math::add(op1->val(), op2->val());
-        result->setVal(x);
-        break;
-    case Token::Type::Minus:
-        x = Math::sub(op1->val(), op2->val());
-        result->setVal(x);
-        break;
-    case Token::Type::Multiply:
-        x = Math::mul(op1->val(), op2->val());
-        result->setVal(x);
-        break;
-    case Token::Type::Divide:
-        x = Math::div(op1->val(), op2->val());
-        result->setVal(x);
-        break;
-    case Token::Type::Exp:
-        x = Math::exp(op1->val(), op2->val());
-        result->setVal(x);
-        break;
-    default:
-        return nullptr;
+        case Token::Type::Plus:
+            x = Math::add(op1->val(), op2->val());
+            result->setVal(x);
+            break;
+        case Token::Type::Minus:
+            x = Math::sub(op1->val(), op2->val());
+            result->setVal(x);
+            break;
+        case Token::Type::Multiply:
+            x = Math::mul(op1->val(), op2->val());
+            result->setVal(x);
+            break;
+        case Token::Type::Divide:
+            x = Math::div(op1->val(), op2->val());
+            result->setVal(x);
+            break;
+        case Token::Type::Exp:
+            x = Math::exp(op1->val(), op2->val());
+            result->setVal(x);
+            break;
+        default:
+            return nullptr;
     }
 
     return result;
 }
 
+
+/**
+ * Perform specific function
+ * @param function type of function
+ * @param params parameters of function
+ * @return mathematical result
+*/
 Parser::ExprToken *Parser::performFunction(Parser::ExprToken *function, std::vector<ExprToken *> params)
 {
     // Check token type
@@ -206,6 +238,13 @@ Parser::ExprToken *Parser::performFunction(Parser::ExprToken *function, std::vec
     return result;
 }
 
+
+/**
+ * Reduction of expression
+ * @param topTerm
+ * @throw SyntaxException wrong expression
+ * @return mathematical result
+*/
 void Parser::reduce(Parser::ExprToken *topTerm)
 {
     switch (topTerm->token()->type()) {
@@ -346,6 +385,14 @@ void Parser::reduce(Parser::ExprToken *topTerm)
     }
 }
 
+
+/**
+ * Reduction of expression (Multiparam function)
+ * @param stackPos
+ * @param paramCount pocet parametru
+ * @throw SyntaxException wrong expression
+ * @return mathematical result
+*/
 void Parser::reduceMultiparamFunc(uint32_t stackPos, uint32_t *paramCount)
 {
     if (stackPos == 0)
@@ -406,6 +453,7 @@ void Parser::reduceMultiparamFunc(uint32_t stackPos, uint32_t *paramCount)
     }
 }
 
+
 Parser::ExprToken *Parser::findTopmostTerminal()
 {
     auto it = exprVector.end();
@@ -420,6 +468,7 @@ Parser::ExprToken *Parser::findTopmostTerminal()
     return nullptr;
 }
 
+
 void Parser::deallocateVector()
 {
     while (exprVector.size() > 0)
@@ -428,6 +477,8 @@ void Parser::deallocateVector()
         exprVector.pop_back();
     }
 }
+
+
 
 void Parser::vectorPopN(uint32_t n)
 {
@@ -438,10 +489,12 @@ void Parser::vectorPopN(uint32_t n)
     }
 }
 
+
 Parser::ExprToken::ExprToken()
 {
 
 }
+
 
 Parser::ExprToken::ExprToken(Parser::ExprToken::Type type, const Token *token) :
     _type(type),
@@ -450,35 +503,42 @@ Parser::ExprToken::ExprToken(Parser::ExprToken::Type type, const Token *token) :
 
 }
 
+
 Parser::ExprToken::Type Parser::ExprToken::type() const
 {
     return _type;
 }
+
 
 void Parser::ExprToken::setType(Parser::ExprToken::Type type)
 {
     _type = type;
 }
 
+
 const Token *Parser::ExprToken::token() const
 {
     return _token;
 }
+
 
 void Parser::ExprToken::setToken(const Token *token)
 {
     _token = token;
 }
 
+
 bool Parser::ExprToken::check(Parser::ExprToken::Type type, Token::Type tokenType)
 {
     return _type == type && _token->type() == tokenType;
 }
 
+
 double Parser::ExprToken::val() const
 {
     return _val;
 }
+
 
 void Parser::ExprToken::setVal(double val)
 {

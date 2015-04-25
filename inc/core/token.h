@@ -1,3 +1,9 @@
+/**
+ * @file token.h
+ * @author Tomas Polesovsky, Miroslav Pavelek, Ivan Sevcik, Zdenek Sklenar
+ * @brief token token.cpp
+ */
+
 #ifndef TOKEN_H
 #define TOKEN_H
 

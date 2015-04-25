@@ -1,3 +1,9 @@
+/**
+ * @file scanner.cpp
+ * @author Tomas Polesovsky, Miroslav Pavelek, Ivan Sevcik, Zdenek Sklenar
+ * @brief Lexical analysis
+ */
+
 #include "inc/core/scanner.h"
 #include "inc/core/myexception.h"
 
@@ -13,6 +19,12 @@ Scanner::~Scanner()
 }
 
 
+/**
+ * Scans expression and creates tokens
+ * @param input expression
+ * @throw LexicalException wrong expression
+ * @return tokenVector vector of tokens
+*/
 TokenVector Scanner::scan(std::string input)
 {
     // Dynamic allocation is required because of Token inheritance

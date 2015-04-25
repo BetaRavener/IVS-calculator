@@ -1,3 +1,9 @@
+/**
+ * @file token.cpp
+ * @author Tomas Polesovsky, Miroslav Pavelek, Ivan Sevcik, Zdenek Sklenar
+ * @brief Token
+ */
+
 #include "inc/core/token.h"
 
 Token::Token(Token::Type type) :
@@ -12,25 +18,30 @@ Token::~Token()
 
 }
 
+
 Token *Token::clone() const
 {
     return new Token(_type);
 }
+
 
 Token::Type Token::type() const
 {
     return _type;
 }
 
+
 bool Token::skip()
 {
     _skip = true;
 }
 
+
 bool Token::isSkipped()
 {
     return _skip;
 }
+
 
 NumberToken::NumberToken(double number) :
     Token(Token::Type::Number),
@@ -39,20 +50,24 @@ NumberToken::NumberToken(double number) :
 
 }
 
+
 NumberToken::~NumberToken()
 {
 
 }
+
 
 NumberToken *NumberToken::clone() const
 {
     return new NumberToken(_number);
 }
 
+
 double NumberToken::number() const
 {
     return _number;
 }
+
 
 void NumberToken::number(double number)
 {
@@ -67,20 +82,24 @@ FunctionToken::FunctionToken(FunctionToken::FunctionId functionId) :
 
 }
 
+
 FunctionToken::~FunctionToken()
 {
 
 }
+
 
 FunctionToken *FunctionToken::clone() const
 {
     return new FunctionToken(_functionId);
 }
 
+
 FunctionToken::FunctionId FunctionToken::functionId() const
 {
     return _functionId;
 }
+
 
 unsigned int FunctionToken::paramNum() const
 {
@@ -95,10 +114,12 @@ unsigned int FunctionToken::paramNum() const
     }
 }
 
+
 TokenVector::TokenVector()
 {
 
 }
+
 
 TokenVector::TokenVector(const TokenVector &other)
 {
@@ -107,6 +128,7 @@ TokenVector::TokenVector(const TokenVector &other)
         _tokenVector.push_back(other[i]->clone());
     }
 }
+
 
 TokenVector::~TokenVector()
 {
@@ -117,15 +139,18 @@ TokenVector::~TokenVector()
     }
 }
 
+
 Token * TokenVector::operator [](std::vector<Token *>::size_type idx) const
 {
     return _tokenVector[idx];
 }
 
+
 std::vector<Token *>::size_type TokenVector::size() const
 {
     return _tokenVector.size();
 }
+
 
 void TokenVector::add(Token *token)
 {
